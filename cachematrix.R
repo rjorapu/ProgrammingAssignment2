@@ -5,23 +5,23 @@
 ## makeCacheMatrix creates a matrix x whose inverse is to be calculated
 ## set -> sets the matrix x
 ## get -> gets the matrix x
-## m is used as a placeholder to check if the matrix has changed
+## s is used to store the solve results and to check if the matrix has changed
 ## it is the solve function.
 ## setsolve -> sets the value of the inverse of the matrix x
 ## getsolve -> gets the value of the inverse of the matrix x
 
 makeCacheMatrix <- function(x = matrix()) {
 
-	m <- NULL
+	s <- NULL
 	set <- function(y) {
 		x <<- y
-		m <<- NULL
+		s <<- NULL
 		
 	}
 	
 	get <- function() x
-	setsolve <- function(solve) m <<- solve
-	getsolve <- function() m
+	setsolve <- function(solve) s <<- solve
+	getsolve <- function() s
 	list(set = set, get = get, setsolve = setsolve, getsolve = getsolve)
 
 }
@@ -37,16 +37,16 @@ cacheSolve <- function(x, ...) {
 	
      ## Return a matrix that is the inverse of 'x'
         
-     m <- x$getsolve()
+     s <- x$getsolve()
      
-	    if(!is.null(m)){
+	    if(!is.null(s)){
 		 message("getting cached data")
-	     return(m)
+	     return(s)
 	    }
 	    
 	data <-x$get()
-	m <- solve(data, ...)
-	x$setsolve(m)
-	m
+	s <- solve(data, ...)
+	x$setsolve(s)
+	s
 
 }
